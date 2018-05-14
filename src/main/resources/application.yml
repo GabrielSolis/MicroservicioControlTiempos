@@ -1,0 +1,33 @@
+#	spring.application.name= microservicio basico
+#	eureka:
+#	  client:	
+#	  	serviceUrl:
+#	  		defaultZone : http://localhost:8761/eureka/
+#	  	instance:
+#	  		statusPageUrlPath: /my_info
+#	  		healthCheckUrlPath: /my_health
+#	  		metadataMap:
+#	  			appOwner: Tesis
+#	  			description: microservicio con la informaci�n base de la empresa
+#	  	healthCheck:
+#	  		enable:true
+
+server:
+   port: ${PORT:9000}
+   
+eureka:
+  client:
+    service-url:
+      defaultZone: https://chasqui-eureka.herokuapp.com/eureka/ #http://localhost:8761/eureka/ #https://eureka-mito.herokuapp.com/eureka/ 
+      instance:
+       statusPageUrlPath: /my_info
+       healthCheckUrlPath: /my_health
+       metadataMap:
+         appOwner: Tesis
+         description: microservicio para el control de rutas y tiempos
+      
+#para seguridad      
+security:
+   oauth2:
+    resource:
+      userInfoUri: https://chasqui-auth.herokuapp.com/user #http://localhost:9999/user     
