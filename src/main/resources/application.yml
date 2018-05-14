@@ -25,7 +25,8 @@ eureka:
        metadataMap:
          appOwner: Tesis
          description: microservicio para el control de rutas y tiempos
-      
+       healthCheck:
+         enable: true
 #para seguridad      
 security:
    oauth2:
