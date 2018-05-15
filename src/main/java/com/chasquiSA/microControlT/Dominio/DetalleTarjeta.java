@@ -10,6 +10,8 @@ public class DetalleTarjeta {
 	private int codigoTiempoEstablecido;
 	private int numeroVuelta;
 	private int minutosTolerancia;
+	private int codigoRuta;
+	private String horaInicio;
 	private boolean vigencia;
 	
 	
@@ -19,8 +21,9 @@ public class DetalleTarjeta {
 
 	
 	public DetalleTarjeta(int codigo, int codigoTarjeta, String horaControl, String estado, String horaGPS,
-			Double diferencia, int codigoTiempoEstablecido, int numeroVuelta, int minutosTolerancia, boolean vigencia) {
-		
+			Double diferencia, int codigoTiempoEstablecido, int numeroVuelta, int minutosTolerancia, int codigoRuta,
+			String horaInicio, boolean vigencia) {
+		super();
 		this.codigo = codigo;
 		this.codigoTarjeta = codigoTarjeta;
 		this.horaControl = horaControl;
@@ -30,7 +33,29 @@ public class DetalleTarjeta {
 		this.codigoTiempoEstablecido = codigoTiempoEstablecido;
 		this.numeroVuelta = numeroVuelta;
 		this.minutosTolerancia = minutosTolerancia;
+		this.codigoRuta = codigoRuta;
+		this.horaInicio = horaInicio;
 		this.vigencia = vigencia;
+	}
+
+
+	public int getCodigoRuta() {
+		return codigoRuta;
+	}
+
+
+	public void setCodigoRuta(int codigoRuta) {
+		this.codigoRuta = codigoRuta;
+	}
+
+
+	public String getHoraInicio() {
+		return horaInicio;
+	}
+
+
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 

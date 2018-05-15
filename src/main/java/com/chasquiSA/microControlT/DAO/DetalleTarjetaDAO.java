@@ -25,7 +25,7 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?)}");
 			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
 				cstm1.setInt(1,codigoTarjeta);
 				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
@@ -33,8 +33,9 @@ public class DetalleTarjetaDAO {
 				cstm1.setString(4,tarjeta.getListaDetalles().get(i).getEstado());
 				cstm1.setInt(5,tarjeta.getListaDetalles().get(i).getNumeroVuelta());
 				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());
-				
-				cstm1.setBoolean(7,tarjeta.getListaDetalles().get(i).isVigencia());
+				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
+				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
+				cstm1.setBoolean(9,tarjeta.getListaDetalles().get(i).isVigencia());
 				cstm1.execute();
 			}
 			Conexion.cerrarConexion();
@@ -47,7 +48,7 @@ public class DetalleTarjetaDAO {
 	public void registroDetalleTarjeta(Tarjeta tarjeta) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();	
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?)}");
 			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
 				cstm1.setInt(1,tarjeta.getCodigo());
 				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
@@ -55,7 +56,9 @@ public class DetalleTarjetaDAO {
 				cstm1.setString(4,tarjeta.getListaDetalles().get(i).getEstado());
 				cstm1.setInt(5,tarjeta.getListaDetalles().get(i).getNumeroVuelta());
 				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());	
-				cstm1.setBoolean(7,tarjeta.getListaDetalles().get(i).isVigencia());
+				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
+				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
+				cstm1.setBoolean(9,tarjeta.getListaDetalles().get(i).isVigencia());
 				cstm1.execute();
 			}
 			Conexion.cerrarConexion();
