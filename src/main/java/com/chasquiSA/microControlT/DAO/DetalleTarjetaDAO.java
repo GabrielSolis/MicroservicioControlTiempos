@@ -50,7 +50,7 @@ public class DetalleTarjetaDAO {
 	public void registroDetalleTarjeta(Tarjeta tarjeta) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();	
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?)}");
 			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
 				cstm1.setInt(1,tarjeta.getCodigo());
 				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
