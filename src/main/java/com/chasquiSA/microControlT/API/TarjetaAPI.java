@@ -102,6 +102,17 @@ public class TarjetaAPI {
 			throw e;
 		}
 	}
+	@GetMapping("/detalleTarjeta/")
+	public ResponseEntity<List<DetalleTarjeta>> listarDetalleTarjeta(@RequestBody DetalleTarjeta detalleTarjeta)throws Exception{
+		List<DetalleTarjeta> listaDetallesTarjeta= new ArrayList<>();
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			listaDetallesTarjeta = dao.obtenerTiempoDetalleTarjeta(detalleTarjeta);
+			return new ResponseEntity<List<DetalleTarjeta>>(listaDetallesTarjeta,HttpStatus.OK);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 	@DeleteMapping("/")
 	public ResponseEntity<?> darBajaTarjeta(@RequestBody Tarjeta tarjeta)throws Exception{
 		try {
