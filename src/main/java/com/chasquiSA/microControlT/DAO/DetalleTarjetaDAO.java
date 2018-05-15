@@ -65,7 +65,6 @@ public class DetalleTarjetaDAO {
 				cstm1.execute();
 			}
 			Conexion.cerrarConexion();
-			cstm1.execute();
 		}catch(Exception e) {
 			throw e;
 		}
