@@ -175,7 +175,7 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<DetalleTarjeta> obtenerNombreRutaDetalleTarjeta(int codigoTarjeta) throws Exception{
+	public List<DetalleTarjeta> obtenerNumeroVueltaTarjeta(int codigoTarjeta) throws Exception{
 		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
 		try {
 			Connection conexion = Conexion.getConexion();

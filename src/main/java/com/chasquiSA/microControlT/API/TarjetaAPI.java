@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chasquiSA.microControlT.DAO.DetalleTarjetaDAO;
+import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
 
 @RestController
@@ -90,6 +91,17 @@ public class TarjetaAPI {
 		}
 	}
 	
+	@GetMapping("/detalleTarjeta/{codigoTarjeta}")
+	public ResponseEntity<List<DetalleTarjeta>> listarNumeroVueltaTarjeta(@PathVariable("codigoTarjeta") int codigoTarjeta)throws Exception{
+		List<DetalleTarjeta> listaDetallesTarjeta= new ArrayList<>();
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			listaDetallesTarjeta = dao.obtenerNumeroVueltaTarjeta(codigoTarjeta);
+			return new ResponseEntity<List<DetalleTarjeta>>(listaDetallesTarjeta,HttpStatus.OK);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 	@DeleteMapping("/")
 	public ResponseEntity<?> darBajaTarjeta(@RequestBody Tarjeta tarjeta)throws Exception{
 		try {
