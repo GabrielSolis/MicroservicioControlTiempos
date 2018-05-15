@@ -12,6 +12,7 @@ public class DetalleTarjeta {
 	private int minutosTolerancia;
 	private int codigoRuta;
 	private String horaInicio;
+	private String nombreRuta;
 	private boolean vigencia;
 	
 	
@@ -19,10 +20,12 @@ public class DetalleTarjeta {
     
 	public DetalleTarjeta() {}
 
-	
+
+
+
 	public DetalleTarjeta(int codigo, int codigoTarjeta, String horaControl, String estado, String horaGPS,
 			Double diferencia, int codigoTiempoEstablecido, int numeroVuelta, int minutosTolerancia, int codigoRuta,
-			String horaInicio, boolean vigencia) {
+			String horaInicio, String nombreRuta, boolean vigencia) {
 		super();
 		this.codigo = codigo;
 		this.codigoTarjeta = codigoTarjeta;
@@ -35,8 +38,25 @@ public class DetalleTarjeta {
 		this.minutosTolerancia = minutosTolerancia;
 		this.codigoRuta = codigoRuta;
 		this.horaInicio = horaInicio;
+		this.nombreRuta = nombreRuta;
 		this.vigencia = vigencia;
 	}
+
+
+
+
+	public String getNombreRuta() {
+		return nombreRuta;
+	}
+
+
+
+
+	public void setNombreRuta(String nombreRuta) {
+		this.nombreRuta = nombreRuta;
+	}
+
+
 
 
 	public int getCodigoRuta() {

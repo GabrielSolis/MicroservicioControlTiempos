@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
 
 public class DetalleTarjetaDAO {
@@ -25,7 +26,7 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?,?)}");
 			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
 				cstm1.setInt(1,codigoTarjeta);
 				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
@@ -35,7 +36,8 @@ public class DetalleTarjetaDAO {
 				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());
 				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
 				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
-				cstm1.setBoolean(9,tarjeta.getListaDetalles().get(i).isVigencia());
+				cstm1.setString(9, tarjeta.getListaDetalles().get(i).getNombreRuta());
+				cstm1.setBoolean(10,tarjeta.getListaDetalles().get(i).isVigencia());
 				cstm1.execute();
 			}
 			Conexion.cerrarConexion();
@@ -48,7 +50,7 @@ public class DetalleTarjetaDAO {
 	public void registroDetalleTarjeta(Tarjeta tarjeta) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();	
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?,?)}");
 			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
 				cstm1.setInt(1,tarjeta.getCodigo());
 				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
@@ -58,6 +60,7 @@ public class DetalleTarjetaDAO {
 				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());	
 				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
 				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
+				cstm1.setString(9, tarjeta.getListaDetalles().get(i).getNombreRuta());
 				cstm1.setBoolean(9,tarjeta.getListaDetalles().get(i).isVigencia());
 				cstm1.execute();
 			}
@@ -167,6 +170,30 @@ public class DetalleTarjetaDAO {
 			cstm.setString(3, tarjeta.getUsuario());
 			cstm.execute();
 			Conexion.cerrarConexion();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public List<DetalleTarjeta> obtenerNombreRutaDetalleTarjeta(int codigoTarjeta) throws Exception{
+		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_eTarjeta(?,?,?)}");
+			ResultSet rs;
+			cstm.setInt(1,codigoTarjeta);
+			rs = cstm.executeQuery();
+			while(rs.next()) {
+				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
+				detalleTarjeta.setCodigoRuta(rs.getInt("codigoRuta"));
+				detalleTarjeta.setNumeroVuelta(rs.getInt("numeroVuelta"));
+				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigoTarjeta"));
+				detalleTarjeta.setNombreRuta(rs.getString("nombreRuta"));
+				listaDetalleTarjeta.add(detalleTarjeta);
+			}
+			Conexion.cerrarConexion();
+			return listaDetalleTarjeta;
+			
 		}catch(Exception e) {
 			throw e;
 		}
