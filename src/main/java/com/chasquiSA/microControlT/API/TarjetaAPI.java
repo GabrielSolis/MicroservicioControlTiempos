@@ -102,12 +102,13 @@ public class TarjetaAPI {
 			throw e;
 		}
 	}
-	@GetMapping("/detalleTarjeta/")
-	public ResponseEntity<List<DetalleTarjeta>> listarDetalleTarjeta(@RequestBody DetalleTarjeta detalleTarjeta)throws Exception{
+	@GetMapping("/detalleTarjeta/{codigoTarjeta}/{codigoRuta}/{numeroVuelta}")
+	public ResponseEntity<List<DetalleTarjeta>> listarDetalleTarjeta(@PathVariable("codigoTarjeta") int codigoTarjeta,
+			@PathVariable("codigoRuta") int codigoRuta , @PathVariable("numeroVuelta") int numeroVuelta)throws Exception{
 		List<DetalleTarjeta> listaDetallesTarjeta= new ArrayList<>();
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
-			listaDetallesTarjeta = dao.obtenerTiempoDetalleTarjeta(detalleTarjeta);
+			listaDetallesTarjeta = dao.obtenerTiempoDetalleTarjeta(codigoTarjeta,codigoRuta,numeroVuelta);
 			return new ResponseEntity<List<DetalleTarjeta>>(listaDetallesTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;

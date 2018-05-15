@@ -199,15 +199,15 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<DetalleTarjeta> obtenerTiempoDetalleTarjeta(DetalleTarjeta detalleTarjetaEntrante) throws Exception{
+	public List<DetalleTarjeta> obtenerTiempoDetalleTarjeta(int codigoTarjeta,int codigoRuta,int numeroVuelta) throws Exception{
 		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_liDetalleTarjeta(?,?,?)}");
 			ResultSet rs;
-			cstm.setInt(1,detalleTarjetaEntrante.getCodigoTarjeta());
-			cstm.setInt(2,detalleTarjetaEntrante.getCodigoRuta());
-			cstm.setInt(3, detalleTarjetaEntrante.getNumeroVuelta());
+			cstm.setInt(1,codigoTarjeta);
+			cstm.setInt(2,codigoRuta);
+			cstm.setInt(3,numeroVuelta);
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
