@@ -179,7 +179,7 @@ public class DetalleTarjetaDAO {
 		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
 		try {
 			Connection conexion = Conexion.getConexion();
-			CallableStatement cstm = conexion.prepareCall("{call pr_eTarjeta(?,?,?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_liNumeroVueltaTarjeta(?)}");
 			ResultSet rs;
 			cstm.setInt(1,codigoTarjeta);
 			rs = cstm.executeQuery();
