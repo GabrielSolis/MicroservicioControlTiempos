@@ -103,6 +103,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRu"));
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
+				tarjeta.setMensaje(rs.getString("p_mensaje"));
 				tarjeta.setEstado(rs.getString("p_estado"));
 				listaTarjetas.add(tarjeta);
 			}
@@ -113,14 +114,15 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<Tarjeta> listarTarjetas(int p_codigo, String p_fecha) throws Exception{
+	public List<Tarjeta> listarTarjetas(int p_codigo, String desdeFecha , String hastaFecha) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
 			List<Tarjeta> listaTarjetas = new ArrayList<>();
-			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjeta(?,?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjeta(?,?,?)}");
 			ResultSet rs;
 			cstm.setInt(1,p_codigo);
-			cstm.setString(2, p_fecha);
+			cstm.setString(2, desdeFecha);
+			cstm.setString(3,hastaFecha);
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				Tarjeta tarjeta = new Tarjeta();
@@ -128,6 +130,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRu"));
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
+				tarjeta.setMensaje("p_mensaje");
 				tarjeta.setEstado(rs.getString("p_estado"));
 				listaTarjetas.add(tarjeta);
 			}

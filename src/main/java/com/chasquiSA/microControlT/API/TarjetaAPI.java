@@ -54,12 +54,12 @@ public class TarjetaAPI {
 		}
 	}
 	
-	@GetMapping("/{codigo}/{fecha}")
-	public ResponseEntity<?> listarTarjetas(@PathVariable int codigo, @PathVariable String fecha )throws Exception{
+	@GetMapping("/{codigo}/{desdeFecha}/{hastaFecha}")
+	public ResponseEntity<?> listarTarjetas(@PathVariable int codigo, @PathVariable("desdeFecha") String desdeFecha,@PathVariable("hastaFecha") String hastaFecha)throws Exception{
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
 			List<Tarjeta> listaTarjeta = new ArrayList<>();
-			listaTarjeta = dao.listarTarjetas(codigo,fecha);
+			listaTarjeta = dao.listarTarjetas(codigo,desdeFecha,hastaFecha);
 			return new ResponseEntity<>(listaTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;
