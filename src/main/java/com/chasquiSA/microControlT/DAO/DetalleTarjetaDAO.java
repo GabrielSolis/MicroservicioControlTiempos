@@ -145,7 +145,7 @@ public class DetalleTarjetaDAO {
 		try {
 			Connection conexion = Conexion.getConexion();
 			List<Tarjeta> listaTarjetas = new ArrayList<>();
-			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjetaFecha(?,?,?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjetaFechas(?,?,?)}");
 			ResultSet rs;
 			cstm.setInt(1,p_codigo);
 			cstm.setString(2, desdeFecha);
