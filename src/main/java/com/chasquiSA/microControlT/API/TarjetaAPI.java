@@ -59,7 +59,7 @@ public class TarjetaAPI {
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
 			List<Tarjeta> listaTarjeta = new ArrayList<>();
-			listaTarjeta = dao.listarTarjetas(codigo,desdeFecha,hastaFecha);
+			listaTarjeta = dao.listarTarjetasFecha(codigo,desdeFecha,hastaFecha);
 			return new ResponseEntity<>(listaTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;

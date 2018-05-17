@@ -114,11 +114,38 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<Tarjeta> listarTarjetas(int p_codigo, String desdeFecha , String hastaFecha) throws Exception{
+	
+	public List<Tarjeta> listarTarjetas(int p_codigo, String fecha) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
 			List<Tarjeta> listaTarjetas = new ArrayList<>();
-			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjeta(?,?,?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjeta(?,?)}");
+			ResultSet rs;
+			cstm.setInt(1,p_codigo);
+			cstm.setString(2, fecha);
+			rs = cstm.executeQuery();
+			while(rs.next()) {
+				Tarjeta tarjeta = new Tarjeta();
+				tarjeta.setCodigo(rs.getInt("p_codigo"));
+				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRu"));
+				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
+				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
+				tarjeta.setMensaje("p_mensaje");
+				tarjeta.setEstado(rs.getString("p_estado"));
+				listaTarjetas.add(tarjeta);
+			}
+			Conexion.cerrarConexion();
+			return listaTarjetas;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public List<Tarjeta> listarTarjetasFecha(int p_codigo, String desdeFecha , String hastaFecha) throws Exception{
+		try {
+			Connection conexion = Conexion.getConexion();
+			List<Tarjeta> listaTarjetas = new ArrayList<>();
+			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjetaFecha(?,?,?)}");
 			ResultSet rs;
 			cstm.setInt(1,p_codigo);
 			cstm.setString(2, desdeFecha);
