@@ -54,7 +54,7 @@ public class TarjetaAPI {
 		}
 	}
 	
-	@GetMapping("/{codigo}/{desdeFecha}/{hastaFecha}")
+	@GetMapping("listar/{codigo}/{desdeFecha}/{hastaFecha}")
 	public ResponseEntity<?> listarTarjetas(@PathVariable int codigo, @PathVariable("desdeFecha") String desdeFecha,@PathVariable("hastaFecha") String hastaFecha)throws Exception{
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
