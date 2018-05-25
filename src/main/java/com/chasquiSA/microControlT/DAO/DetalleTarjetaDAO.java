@@ -115,13 +115,13 @@ public class DetalleTarjetaDAO {
 	}
 	
 	
-	public List<Tarjeta> listarTarjetas(int p_codigo, String fecha) throws Exception{
+	public List<Tarjeta> listarTarjetas(int p_codigoRU, String fecha) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
 			List<Tarjeta> listaTarjetas = new ArrayList<>();
 			CallableStatement cstm = conexion.prepareCall("{call pr_liTarjeta(?,?)}");
 			ResultSet rs;
-			cstm.setInt(1,p_codigo);
+			cstm.setInt(1,p_codigoRU);
 			cstm.setString(2, fecha);
 			rs = cstm.executeQuery();
 			while(rs.next()) {
@@ -197,6 +197,20 @@ public class DetalleTarjetaDAO {
 			cstm.setInt(1,tarjeta.getCodigo());
 			cstm.setString(2, tarjeta.getMensaje());
 			cstm.setString(3, tarjeta.getUsuario());
+			cstm.execute();
+			Conexion.cerrarConexion();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public void darBajaDetalleTarjeta(DetalleTarjeta detalleTarjeta) throws Exception{
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_eDetalleTarjeta(?,?,?)}");
+			cstm.setInt(1,detalleTarjeta.getCodigoTarjeta());
+			cstm.setInt(2, detalleTarjeta.getCodigoRuta());
+			cstm.setString(3, detalleTarjeta.getMensaje());
 			cstm.execute();
 			Conexion.cerrarConexion();
 		}catch(Exception e) {

@@ -125,5 +125,16 @@ public class TarjetaAPI {
 		}
 	}
 	
+	@DeleteMapping("/detalleTarjeta/")
+	public ResponseEntity<?> darBajaTarjeta(@RequestBody DetalleTarjeta detalleTarjeta)throws Exception{
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			dao.darBajaDetalleTarjeta(detalleTarjeta);
+			return new ResponseEntity<>("Detalle de tarjeta dada de baja correctamente",HttpStatus.OK);
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
 	
 }
