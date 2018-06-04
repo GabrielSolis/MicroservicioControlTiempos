@@ -78,6 +78,18 @@ public class TarjetaAPI {
 		}
 	}
 	
+	@GetMapping("/ultimaRuta/{codigoTarjeta}")
+	public ResponseEntity<?> obtenerUltimoDetalleTarjeta(@PathVariable("codigoTarjeta") int codigoTarjeta)throws Exception{
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
+			listaDetalleTarjeta = dao.obtenerUltimoDetalleTarjeta(codigoTarjeta);
+			return new ResponseEntity<>(listaDetalleTarjeta,HttpStatus.OK);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	@GetMapping("/{desdeFecha}/{hastaFecha}/{estado}")
 	public ResponseEntity<List<Tarjeta>> listarTarjetasEstado(@PathVariable("desdeFecha") String desdeFecha,@PathVariable("hastaFecha") String hastaFecha,
 			@PathVariable("estado") String estado)throws Exception{

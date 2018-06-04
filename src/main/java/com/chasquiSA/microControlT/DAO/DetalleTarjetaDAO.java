@@ -266,4 +266,31 @@ public class DetalleTarjetaDAO {
 			throw e;
 		}
 	}
+	
+	public List<DetalleTarjeta> obtenerUltimoDetalleTarjeta(int codigoTarjeta)throws Exception{
+		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_liUltimaRutaTarjeta(?)}");
+			ResultSet rs;
+			cstm.setInt(1,codigoTarjeta);
+			rs = cstm.executeQuery();
+			while(rs.next()) {
+				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
+				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigoTarjeta"));
+				detalleTarjeta.setCodigoTiempoEstablecido(rs.getInt("codigoTiempoEstablecido"));
+				detalleTarjeta.setCodigoRuta(rs.getInt("codigoRuta"));
+				detalleTarjeta.setHoraControl(rs.getString("horaControl"));
+				detalleTarjeta.setHoraGPS(rs.getString("horaGPS"));
+				detalleTarjeta.setDiferencia(rs.getDouble("diferencia"));
+				detalleTarjeta.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
+				detalleTarjeta.setHoraInicio(rs.getString("horaInicio"));
+				listaDetalleTarjeta.add(detalleTarjeta);
+			}
+			Conexion.cerrarConexion();
+			return listaDetalleTarjeta;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 }
