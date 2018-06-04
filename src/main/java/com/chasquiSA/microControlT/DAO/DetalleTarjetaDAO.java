@@ -277,14 +277,14 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
-				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigoTarjeta"));
-				detalleTarjeta.setCodigoTiempoEstablecido(rs.getInt("codigoTiempoEstablecido"));
-				detalleTarjeta.setCodigoRuta(rs.getInt("codigoRuta"));
-				detalleTarjeta.setHoraControl(rs.getString("horaControl"));
-				detalleTarjeta.setHoraGPS(rs.getString("horaGPS"));
-				detalleTarjeta.setDiferencia(rs.getDouble("diferencia"));
-				detalleTarjeta.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
-				detalleTarjeta.setHoraInicio(rs.getString("horaInicio"));
+				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigo"));
+				detalleTarjeta.setCodigoTiempoEstablecido(rs.getInt("p_codigoTiempoEstablecido"));
+				detalleTarjeta.setCodigoRuta(rs.getInt("p_codigoRuta"));
+				detalleTarjeta.setHoraControl(rs.getString("p_horaControl"));
+				detalleTarjeta.setHoraGPS(rs.getString("p_horaGPS"));
+				detalleTarjeta.setDiferencia(rs.getDouble("p_diferencia"));
+				detalleTarjeta.setMinutosTolerancia(rs.getInt("p_minutosTolerancia"));
+				detalleTarjeta.setHoraInicio(rs.getString("p_horaInicio"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
 			Conexion.cerrarConexion();
