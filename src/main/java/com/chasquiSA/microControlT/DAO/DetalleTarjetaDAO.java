@@ -294,4 +294,24 @@ public class DetalleTarjetaDAO {
 			throw e;
 		}
 	}
+	public void registrarTiemposGPS(List<DetalleTarjeta> listaDetalle) throws Exception{
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_aTiemposGPSDetalleTarjeta(?,?,?)}");
+			
+			for (DetalleTarjeta detalleTarjeta : listaDetalle) {
+				if(detalleTarjeta.getHoraGPS() != null) {
+					cstm.setInt(1,detalleTarjeta.getCodigo());
+					cstm.setString(2,detalleTarjeta.getHoraGPS());
+					cstm.setDouble(3,detalleTarjeta.getDiferencia());
+					cstm.execute();
+				}
+				
+			}
+			Conexion.cerrarConexion();
+			
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 }
