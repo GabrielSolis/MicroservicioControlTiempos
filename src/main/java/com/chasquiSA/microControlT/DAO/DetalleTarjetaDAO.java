@@ -277,7 +277,8 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
-				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigo"));
+				detalleTarjeta.setCodigoTarjeta(rs.getInt("p_codigoTarjeta"));
+				detalleTarjeta.setCodigo(rs.getInt("p_codigoDetalle"));
 				detalleTarjeta.setCodigoTiempoEstablecido(rs.getInt("p_codigoTiempoEstablecido"));
 				detalleTarjeta.setCodigoRuta(rs.getInt("p_codigoRuta"));
 				detalleTarjeta.setHoraControl(rs.getString("p_horaControl"));
