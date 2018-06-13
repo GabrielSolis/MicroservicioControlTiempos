@@ -42,7 +42,7 @@ public class TarjetaAPI {
 			}
 	}
 	
-	@PostMapping("/detalle/tiempos")
+	@PostMapping("/detalle/tiempos/")
 	public ResponseEntity<Integer> registrarTiemposGPSDetalle(@RequestBody List<DetalleTarjeta> listaDetalles)throws Exception{
 		int bandera = 0;
 		try {
