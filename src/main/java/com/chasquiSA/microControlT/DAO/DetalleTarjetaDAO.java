@@ -254,10 +254,12 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
+				detalleTarjeta.setCodigoTarjeta(codigoTarjeta);
 				detalleTarjeta.setHoraControl(rs.getString("horaControl"));
 				detalleTarjeta.setHoraGPS(rs.getString("horaGPS"));
 				detalleTarjeta.setDiferencia(rs.getDouble("diferencia"));
 				detalleTarjeta.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
+				detalleTarjeta.setHoraInicio(rs.getString("p_horaInicio"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
 			Conexion.cerrarConexion();
