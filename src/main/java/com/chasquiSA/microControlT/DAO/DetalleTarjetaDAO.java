@@ -46,7 +46,7 @@ public class DetalleTarjetaDAO {
 			rs1.next();
 			codigoDetalleTarjeta = rs1.getInt(1);
 			log.info(codigoDetalleTarjeta);
-			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?}");
+			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiemposDetalleTarjeta(?,?,?,?}");
 		
 			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 				System.out.println(codigoDetalleTarjeta);
