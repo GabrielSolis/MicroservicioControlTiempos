@@ -46,9 +46,9 @@ public class DetalleTarjetaDAO {
 			rs1.next();
 			codigoDetalleTarjeta = rs1.getInt(1);
 			log.info(codigoDetalleTarjeta);
-			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiemposDetalleTarjeta(?,?,?,?}");
+			//CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiemposDetalleTarjeta(?,?,?,?}");
 		
-			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
+			/*for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 				System.out.println(codigoDetalleTarjeta);
 				
 				cstm2.setInt(1,codigoDetalleTarjeta);
@@ -56,7 +56,7 @@ public class DetalleTarjetaDAO {
 				cstm2.setInt(3,tiempo.getMinutosTolerancia());
 				cstm2.setString(4,tiempo.getHoraControl());				
 				cstm2.execute();
-			}
+			}*/
 			Conexion.cerrarConexion();
 			return codigoTarjeta;
 		}catch(Exception e) {
