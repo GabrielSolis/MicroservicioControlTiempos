@@ -30,10 +30,6 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
-			Logger log = Logger.getLogger("Logger de Ejemplo");
-			log.info(codigoTarjeta);
-	
-			
 			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
 			cstm1.setInt(1,codigoTarjeta);
 			cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
@@ -45,18 +41,15 @@ public class DetalleTarjetaDAO {
 			rs1 = cstm1.executeQuery();
 			rs1.next();
 			codigoDetalleTarjeta = rs1.getInt(1);
-			log.info(codigoDetalleTarjeta);
-			//CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiemposDetalleTarjeta(?,?,?,?}");
+			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiemposDetalleTarjeta(?,?,?,?)}");
 		
-			/*for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
-				System.out.println(codigoDetalleTarjeta);
-				
+			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 				cstm2.setInt(1,codigoDetalleTarjeta);
 				cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
 				cstm2.setInt(3,tiempo.getMinutosTolerancia());
 				cstm2.setString(4,tiempo.getHoraControl());				
 				cstm2.execute();
-			}*/
+			}
 			Conexion.cerrarConexion();
 			return codigoTarjeta;
 		}catch(Exception e) {
