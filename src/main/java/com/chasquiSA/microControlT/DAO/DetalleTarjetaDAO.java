@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
@@ -14,7 +14,7 @@ import com.chasquiSA.microControlT.Dominio.TiemposDetalleTarjeta;
 
 
 public class DetalleTarjetaDAO {
-	@Transactional
+	
 	public int registroTarjeta(Tarjeta tarjeta)throws Exception {
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -30,6 +30,10 @@ public class DetalleTarjetaDAO {
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
+			Logger log = Logger.getLogger("Logger de Ejemplo");
+			log.info(codigoTarjeta);
+	
+			
 			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
 			cstm1.setInt(1,codigoTarjeta);
 			cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
@@ -41,6 +45,7 @@ public class DetalleTarjetaDAO {
 			rs1 = cstm1.executeQuery();
 			rs1.next();
 			codigoDetalleTarjeta = rs1.getInt(1);
+			log.info(codigoDetalleTarjeta);
 			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?}");
 		
 			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
