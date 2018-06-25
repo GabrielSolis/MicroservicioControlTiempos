@@ -19,7 +19,7 @@ public class DetalleTarjetaDAO {
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_iTarjeta(?,?,?,?,?,?)}");
-			ResultSet rs;
+			ResultSet rs,rs1;
 			int codigoTarjeta,codigoDetalleTarjeta;
 			cstm.setString(1,tarjeta.getNumero());
 			cstm.setString(2,tarjeta.getFecha());
@@ -38,12 +38,14 @@ public class DetalleTarjetaDAO {
 			cstm1.setString(5,tarjeta.getListaDetalles().get(0).getHoraInicio());
 			cstm1.setString(6, tarjeta.getListaDetalles().get(0).getNombreRuta());
 			cstm1.setBoolean(7,tarjeta.getListaDetalles().get(0).isVigencia());
-			rs = cstm1.executeQuery();
-			rs.next();
-			codigoDetalleTarjeta = rs.getInt(1);
+			rs1 = cstm1.executeQuery();
+			rs1.next();
+			codigoDetalleTarjeta = rs1.getInt(1);
 			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?}");
 		
 			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
+				System.out.println(codigoDetalleTarjeta);
+				
 				cstm2.setInt(1,codigoDetalleTarjeta);
 				cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
 				cstm2.setInt(3,tiempo.getMinutosTolerancia());
