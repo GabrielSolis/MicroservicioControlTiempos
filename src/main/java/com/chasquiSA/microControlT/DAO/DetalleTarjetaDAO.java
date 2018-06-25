@@ -12,8 +12,9 @@ import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
 import com.chasquiSA.microControlT.Dominio.TiemposDetalleTarjeta;
 
-@Transactional
+
 public class DetalleTarjetaDAO {
+	@Transactional
 	public int registroTarjeta(Tarjeta tarjeta)throws Exception {
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -40,13 +41,14 @@ public class DetalleTarjetaDAO {
 			rs = cstm1.executeQuery();
 			rs.next();
 			codigoDetalleTarjeta = rs.getInt(1);
-			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?)}");
+			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?}");
 		
 			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 				cstm2.setInt(1,codigoDetalleTarjeta);
 				cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
 				cstm2.setInt(3,tiempo.getMinutosTolerancia());
 				cstm2.setString(4,tiempo.getHoraControl());
+				
 				cstm2.execute();
 			}
 			Conexion.cerrarConexion();
@@ -72,7 +74,7 @@ public class DetalleTarjetaDAO {
 				rs = cstm1.executeQuery();
 				rs.next();
 				codigoDetalleTarjeta = rs.getInt(1);
-				CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?)}");
+				CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?)}");
 				for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 					cstm2.setInt(1,codigoDetalleTarjeta);
 					cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
