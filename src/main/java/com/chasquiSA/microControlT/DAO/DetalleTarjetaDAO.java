@@ -47,8 +47,7 @@ public class DetalleTarjetaDAO {
 				cstm2.setInt(1,codigoDetalleTarjeta);
 				cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
 				cstm2.setInt(3,tiempo.getMinutosTolerancia());
-				cstm2.setString(4,tiempo.getHoraControl());
-				
+				cstm2.setString(4,tiempo.getHoraControl());				
 				cstm2.execute();
 			}
 			Conexion.cerrarConexion();
