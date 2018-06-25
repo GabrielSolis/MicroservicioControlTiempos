@@ -41,7 +41,7 @@ public class DetalleTarjetaDAO {
 			rs = cstm1.executeQuery();
 			rs.next();
 			codigoDetalleTarjeta = rs.getInt(1);
-			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?}");
+			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?}");
 		
 			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
 				cstm2.setInt(1,codigoDetalleTarjeta);
