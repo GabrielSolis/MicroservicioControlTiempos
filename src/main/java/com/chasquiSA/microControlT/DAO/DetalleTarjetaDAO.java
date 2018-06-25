@@ -6,39 +6,48 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
+import com.chasquiSA.microControlT.Dominio.TiemposDetalleTarjeta;
 
+@Transactional
 public class DetalleTarjetaDAO {
 	public int registroTarjeta(Tarjeta tarjeta)throws Exception {
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_iTarjeta(?,?,?,?,?,?)}");
 			ResultSet rs;
-			int codigoTarjeta;
+			int codigoTarjeta,codigoDetalleTarjeta;
 			cstm.setString(1,tarjeta.getNumero());
 			cstm.setString(2,tarjeta.getFecha());
 			cstm.setString(3,tarjeta.getUsuario());
 			cstm.setString(4,tarjeta.getEstado());
 			cstm.setInt(5,tarjeta.getCodigoRegistroUnidad());
 			cstm.setBoolean(6,tarjeta.isVigencia());
-			
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?,?)}");
-			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
-				cstm1.setInt(1,codigoTarjeta);
-				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
-				cstm1.setString(3,tarjeta.getListaDetalles().get(i).getHoraControl());
-				cstm1.setString(4,tarjeta.getListaDetalles().get(i).getEstado());
-				cstm1.setInt(5,tarjeta.getListaDetalles().get(i).getNumeroVuelta());
-				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());
-				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
-				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
-				cstm1.setString(9, tarjeta.getListaDetalles().get(i).getNombreRuta());
-				cstm1.setBoolean(10,tarjeta.getListaDetalles().get(i).isVigencia());
-				cstm1.execute();
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
+			cstm1.setInt(1,codigoTarjeta);
+			cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
+			cstm1.setInt(3, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
+			cstm1.setInt(4,tarjeta.getListaDetalles().get(0).getCodigoRuta());
+			cstm1.setString(5,tarjeta.getListaDetalles().get(0).getHoraInicio());
+			cstm1.setString(6, tarjeta.getListaDetalles().get(0).getNombreRuta());
+			cstm1.setBoolean(7,tarjeta.getListaDetalles().get(0).isVigencia());
+			rs = cstm1.executeQuery();
+			rs.next();
+			codigoDetalleTarjeta = rs.getInt(1);
+			CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?)}");
+		
+			for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
+				cstm2.setInt(1,codigoDetalleTarjeta);
+				cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
+				cstm2.setInt(3,tiempo.getMinutosTolerancia());
+				cstm2.setString(4,tiempo.getHoraControl());
+				cstm2.execute();
 			}
 			Conexion.cerrarConexion();
 			return codigoTarjeta;
@@ -49,21 +58,28 @@ public class DetalleTarjetaDAO {
 	
 	public void registroDetalleTarjeta(Tarjeta tarjeta) throws Exception{
 		try {
-			Connection conexion = Conexion.getConexion();	
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?,?,?,?)}");
-			for(int i=0;i<tarjeta.getListaDetalles().size();i++) {
+			Connection conexion = Conexion.getConexion();
+			ResultSet rs;
+			int codigoDetalleTarjeta;
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
 				cstm1.setInt(1,tarjeta.getCodigo());
-				cstm1.setInt(2,tarjeta.getListaDetalles().get(i).getCodigoTiempoEstablecido());
-				cstm1.setString(3,tarjeta.getListaDetalles().get(i).getHoraControl());
-				cstm1.setString(4,tarjeta.getListaDetalles().get(i).getEstado());
-				cstm1.setInt(5,tarjeta.getListaDetalles().get(i).getNumeroVuelta());
-				cstm1.setInt(6, tarjeta.getListaDetalles().get(i).getMinutosTolerancia());	
-				cstm1.setInt(7,tarjeta.getListaDetalles().get(i).getCodigoRuta());
-				cstm1.setString(8, tarjeta.getListaDetalles().get(i).getHoraInicio());
-				cstm1.setString(9, tarjeta.getListaDetalles().get(i).getNombreRuta());
-				cstm1.setBoolean(10,tarjeta.getListaDetalles().get(i).isVigencia());
-				cstm1.execute();
-			}
+				cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
+				cstm1.setInt(3, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
+				cstm1.setInt(4,tarjeta.getListaDetalles().get(0).getCodigoRuta());
+				cstm1.setString(5,tarjeta.getListaDetalles().get(0).getHoraInicio());
+				cstm1.setString(6, tarjeta.getListaDetalles().get(0).getNombreRuta());
+				cstm1.setBoolean(7,tarjeta.getListaDetalles().get(0).isVigencia());
+				rs = cstm1.executeQuery();
+				rs.next();
+				codigoDetalleTarjeta = rs.getInt(1);
+				CallableStatement cstm2 = conexion.prepareCall("{call pr_iTiempoDetalleTarjeta(?,?,?,?,?)}");
+				for (TiemposDetalleTarjeta tiempo : tarjeta.getListaDetalles().get(0).getListaTiemposDetalleTarjeta()) {
+					cstm2.setInt(1,codigoDetalleTarjeta);
+					cstm2.setInt(2,tiempo.getCodigoTiempoEstablecido());
+					cstm2.setInt(3,tiempo.getMinutosTolerancia());
+					cstm2.setString(4,tiempo.getHoraControl());
+					cstm2.execute();
+				}
 			Conexion.cerrarConexion();
 		}catch(Exception e) {
 			throw e;
@@ -218,7 +234,7 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<DetalleTarjeta> obtenerNumeroVueltaTarjeta(int codigoTarjeta) throws Exception{
+	public List<DetalleTarjeta> obtenerDetalleTarjeta(int codigoTarjeta) throws Exception{
 		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -230,7 +246,6 @@ public class DetalleTarjetaDAO {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
 				detalleTarjeta.setCodigoRuta(rs.getInt("codigoRuta"));
 				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigoTarjeta"));
-				detalleTarjeta.setNumeroVuelta(rs.getInt("numeroVuelta"));
 				detalleTarjeta.setNombreRuta(rs.getString("nombreRuta"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
@@ -255,10 +270,6 @@ public class DetalleTarjetaDAO {
 			while(rs.next()) {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
 				detalleTarjeta.setCodigoTarjeta(codigoTarjeta);
-				detalleTarjeta.setHoraControl(rs.getString("horaControl"));
-				detalleTarjeta.setHoraGPS(rs.getString("horaGPS"));
-				detalleTarjeta.setDiferencia(rs.getDouble("diferencia"));
-				detalleTarjeta.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
 				detalleTarjeta.setHoraInicio(rs.getString("p_horaInicio"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
@@ -281,12 +292,7 @@ public class DetalleTarjetaDAO {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
 				detalleTarjeta.setCodigoTarjeta(rs.getInt("p_codigoTarjeta"));
 				detalleTarjeta.setCodigo(rs.getInt("p_codigoDetalle"));
-				detalleTarjeta.setCodigoTiempoEstablecido(rs.getInt("p_codigoTiempoEstablecido"));
 				detalleTarjeta.setCodigoRuta(rs.getInt("p_codigoRuta"));
-				detalleTarjeta.setHoraControl(rs.getString("p_horaControl"));
-				detalleTarjeta.setHoraGPS(rs.getString("p_horaGPS"));
-				detalleTarjeta.setDiferencia(rs.getDouble("p_diferencia"));
-				detalleTarjeta.setMinutosTolerancia(rs.getInt("p_minutosTolerancia"));
 				detalleTarjeta.setHoraInicio(rs.getString("p_horaInicio"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
@@ -296,6 +302,7 @@ public class DetalleTarjetaDAO {
 			throw e;
 		}
 	}
+	/*
 	public void registrarTiemposGPS(List<DetalleTarjeta> listaDetalle) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -315,5 +322,5 @@ public class DetalleTarjetaDAO {
 		}catch(Exception e) {
 			throw e;
 		}
-	}
+	}*/
 }

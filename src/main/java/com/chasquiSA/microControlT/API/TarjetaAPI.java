@@ -42,7 +42,7 @@ public class TarjetaAPI {
 			}
 	}
 	
-	@PostMapping("/detalle/tiempos/")
+	/*@PostMapping("/detalle/tiempos/")
 	public ResponseEntity<Integer> registrarTiemposGPSDetalle(@RequestBody List<DetalleTarjeta> listaDetalles)throws Exception{
 		int bandera = 0;
 		try {
@@ -53,7 +53,7 @@ public class TarjetaAPI {
 		}catch(Exception e) {
 			throw e;
 		}
-	}
+	}*/
 	@PostMapping("/verificarTarjeta/")
 	public ResponseEntity<?> verificarTarjeta(@RequestBody Tarjeta tarjeta) throws Exception{  
 		boolean respuesta;
@@ -120,7 +120,7 @@ public class TarjetaAPI {
 		List<DetalleTarjeta> listaDetallesTarjeta= new ArrayList<>();
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
-			listaDetallesTarjeta = dao.obtenerNumeroVueltaTarjeta(codigoTarjeta);
+			listaDetallesTarjeta = dao.obtenerDetalleTarjeta(codigoTarjeta);
 			return new ResponseEntity<List<DetalleTarjeta>>(listaDetallesTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;
