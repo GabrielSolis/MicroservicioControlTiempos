@@ -248,6 +248,7 @@ public class DetalleTarjetaDAO {
 				detalleTarjeta.setCodigo(rs.getInt("codigoDetalleTarjeta"));
 				detalleTarjeta.setCodigoRuta(rs.getInt("codigoRuta"));
 				detalleTarjeta.setCodigoTarjeta(rs.getInt("codigoTarjeta"));
+				detalleTarjeta.setNumeroVuelta(rs.getInt("numeroVuelta"));
 				detalleTarjeta.setNombreRuta(rs.getString("nombreRuta"));
 				listaDetalleTarjeta.add(detalleTarjeta);
 			}
@@ -287,24 +288,35 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
-	public List<DetalleTarjeta> obtenerUltimoDetalleTarjeta(int codigoTarjeta)throws Exception{
-		List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
+	public DetalleTarjeta obtenerUltimoDetalleTarjeta(int codigoTarjeta)throws Exception{
+		List<TiemposDetalleTarjeta> listaTiemposDetalleTarjeta = new ArrayList<>();
 		try {
 			Connection conexion = Conexion.getConexion();
-			CallableStatement cstm = conexion.prepareCall("{call pr_liUltimaRutaTarjeta(?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_liUltimoDetalleTarjeta(?)}");
 			ResultSet rs;
 			cstm.setInt(1,codigoTarjeta);
 			rs = cstm.executeQuery();
+			DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
 			while(rs.next()) {
-				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
+				TiemposDetalleTarjeta tiempo = new TiemposDetalleTarjeta();
+				detalleTarjeta.setCodigo(rs.getInt("p_codigoDetalleTarjeta"));
 				detalleTarjeta.setCodigoTarjeta(rs.getInt("p_codigoTarjeta"));
-				detalleTarjeta.setCodigo(rs.getInt("p_codigoDetalle"));
 				detalleTarjeta.setCodigoRuta(rs.getInt("p_codigoRuta"));
+				detalleTarjeta.setNumeroVuelta(rs.getInt("p_numeroVuelta"));
+				detalleTarjeta.setNombreRuta(rs.getString("p_nombreRuta"));
 				detalleTarjeta.setHoraInicio(rs.getString("p_horaInicio"));
-				listaDetalleTarjeta.add(detalleTarjeta);
+				
+				tiempo.setCodigo(rs.getInt("p_codigoTiempoDetalleTarjeta"));
+				tiempo.setCodigoTiempoEstablecido(rs.getInt("p_codigoTiempoEstablecido"));
+				tiempo.setDiferencia(rs.getDouble("p_diferencia"));
+				tiempo.setHoraControl(rs.getString("p_horaControl"));
+				tiempo.setHoraGPS(rs.getString("p_horaGPS"));
+				tiempo.setMinutosTolerancia(rs.getInt("p_minutosTolerancia"));
+				listaTiemposDetalleTarjeta.add(tiempo);
 			}
+			detalleTarjeta.setListaTiemposDetalleTarjeta(listaTiemposDetalleTarjeta);
 			Conexion.cerrarConexion();
-			return listaDetalleTarjeta;
+			return detalleTarjeta;
 		}catch(Exception e) {
 			throw e;
 		}

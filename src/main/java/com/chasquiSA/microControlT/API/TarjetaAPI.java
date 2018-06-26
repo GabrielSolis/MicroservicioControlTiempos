@@ -95,9 +95,9 @@ public class TarjetaAPI {
 	public ResponseEntity<?> obtenerUltimoDetalleTarjeta(@PathVariable("codigoTarjeta") int codigoTarjeta)throws Exception{
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
-			List<DetalleTarjeta> listaDetalleTarjeta = new ArrayList<>();
-			listaDetalleTarjeta = dao.obtenerUltimoDetalleTarjeta(codigoTarjeta);
-			return new ResponseEntity<>(listaDetalleTarjeta,HttpStatus.OK);
+			DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
+			detalleTarjeta = dao.obtenerUltimoDetalleTarjeta(codigoTarjeta);
+			return new ResponseEntity<>(detalleTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;
 		}

@@ -5,7 +5,6 @@ public class TiemposDetalleTarjeta {
 	private int codigo;
 	private int codigoTiempoEstablecido;
 	private DetalleTarjeta detalleTarjeta;
-	private int numeroVuelta;
 	private int minutosTolerancia;
 	private String horaGPS;
 	private Double diferencia;
@@ -30,12 +29,7 @@ public class TiemposDetalleTarjeta {
 	public void setCodigoTiempoEstablecido(int codigoTiempoEstablecido) {
 		this.codigoTiempoEstablecido = codigoTiempoEstablecido;
 	}
-	public int getNumeroVuelta() {
-		return numeroVuelta;
-	}
-	public void setNumeroVuelta(int numeroVuelta) {
-		this.numeroVuelta = numeroVuelta;
-	}
+
 	public int getMinutosTolerancia() {
 		return minutosTolerancia;
 	}
