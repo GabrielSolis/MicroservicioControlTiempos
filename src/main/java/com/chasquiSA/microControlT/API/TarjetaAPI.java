@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chasquiSA.microControlT.DAO.DetalleTarjetaDAO;
 import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
+import com.chasquiSA.microControlT.Dominio.TiemposDetalleTarjeta;
 
 @RestController
 @RequestMapping("/tarjeta")
@@ -126,14 +127,13 @@ public class TarjetaAPI {
 			throw e;
 		}
 	}
-	@GetMapping("/detalleTarjeta/{codigoTarjeta}/{codigoRuta}/{numeroVuelta}")
-	public ResponseEntity<List<DetalleTarjeta>> listarDetalleTarjeta(@PathVariable("codigoTarjeta") int codigoTarjeta,
-			@PathVariable("codigoRuta") int codigoRuta , @PathVariable("numeroVuelta") int numeroVuelta)throws Exception{
-		List<DetalleTarjeta> listaDetallesTarjeta= new ArrayList<>();
+	@GetMapping("/detalleTarjeta/tiempos/{codigoDetalleTarjeta}")
+	public ResponseEntity<List<TiemposDetalleTarjeta>> listarDetalleTarjeta(@PathVariable("codigoDetalleTarjeta") int codigoDetalleTarjeta)throws Exception{
+		List<TiemposDetalleTarjeta> listaTiemposDetallesTarjeta= new ArrayList<>();
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
-			listaDetallesTarjeta = dao.obtenerTiempoDetalleTarjeta(codigoTarjeta,codigoRuta,numeroVuelta);
-			return new ResponseEntity<List<DetalleTarjeta>>(listaDetallesTarjeta,HttpStatus.OK);
+			listaTiemposDetallesTarjeta = dao.obtenerTiempoDetalleTarjeta(codigoDetalleTarjeta);
+			return new ResponseEntity<List<TiemposDetalleTarjeta>>(listaTiemposDetallesTarjeta,HttpStatus.OK);
 		}catch(Exception e) {
 			throw e;
 		}
