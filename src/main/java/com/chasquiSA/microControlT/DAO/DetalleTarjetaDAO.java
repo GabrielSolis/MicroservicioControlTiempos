@@ -273,8 +273,8 @@ public class DetalleTarjetaDAO {
 				tiempoDetalle.getDetalleTarjeta().setCodigo(rs.getInt("codigoDetalleTarjeta"));
 				tiempoDetalle.setCodigoTiempoEstablecido(rs.getInt("codigoTiempoEstablecido"));
 				tiempoDetalle.setHoraControl(rs.getString("horaControl"));
-				tiempoDetalle.setHoraGPS(rs.getString("horaGPS"));
-				tiempoDetalle.setDiferencia(rs.getDouble("diferencia"));
+				tiempoDetalle.setHoraGPS((rs.getString("horaGPS")!= null ? rs.getString("horaGPS") : ""));
+				tiempoDetalle.setDiferencia(rs.getDouble("diferencia"));	
 				tiempoDetalle.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
 				listaTiemposDetalleTarjeta.add(tiempoDetalle);
 			}
