@@ -224,7 +224,7 @@ public class DetalleTarjetaDAO {
 	public void darBajaDetalleTarjeta(DetalleTarjeta detalleTarjeta) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
-			CallableStatement cstm = conexion.prepareCall("{call pr_eDetalleTarjeta(?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_eDetalleTarjeta(?,?)}");
 			cstm.setInt(1,detalleTarjeta.getCodigo());
 			cstm.setString(2,detalleTarjeta.getMensaje());
 			cstm.execute();
