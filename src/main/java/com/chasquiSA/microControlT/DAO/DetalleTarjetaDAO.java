@@ -6,15 +6,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chasquiSA.microControlT.Dominio.DetalleTarjeta;
 import com.chasquiSA.microControlT.Dominio.Tarjeta;
 import com.chasquiSA.microControlT.Dominio.TiemposDetalleTarjeta;
 
-@Transactional
+@Repository
 public class DetalleTarjetaDAO {
-	
+	@Transactional
 	public int registroTarjeta(Tarjeta tarjeta)throws Exception {
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -57,6 +58,7 @@ public class DetalleTarjetaDAO {
 		}
 	}
 	
+	@Transactional
 	public void registroDetalleTarjeta(Tarjeta tarjeta) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -286,7 +288,7 @@ public class DetalleTarjetaDAO {
 			throw e;
 		}
 	}
-	
+	@Transactional
 	public DetalleTarjeta obtenerUltimoDetalleTarjeta(int codigoTarjeta)throws Exception{
 		List<TiemposDetalleTarjeta> listaTiemposDetalleTarjeta = new ArrayList<>();
 		try {
@@ -320,17 +322,17 @@ public class DetalleTarjetaDAO {
 			throw e;
 		}
 	}
-	/*
-	public void registrarTiemposGPS(List<DetalleTarjeta> listaDetalle) throws Exception{
+	
+	public void registrarTiemposGPS(List<TiemposDetalleTarjeta> listaTiemposDetalle) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_aTiemposGPSDetalleTarjeta(?,?,?)}");
 			
-			for (DetalleTarjeta detalleTarjeta : listaDetalle) {
-				if(detalleTarjeta.getHoraGPS() != null) {
-					cstm.setInt(1,detalleTarjeta.getCodigo());
-					cstm.setString(2,detalleTarjeta.getHoraGPS());
-					cstm.setDouble(3,detalleTarjeta.getDiferencia());
+			for (TiemposDetalleTarjeta tiemposDetalleTarjeta : listaTiemposDetalle) {
+				if(tiemposDetalleTarjeta.getHoraGPS() != null) {
+					cstm.setInt(1,tiemposDetalleTarjeta.getCodigo());
+					cstm.setString(2,tiemposDetalleTarjeta.getHoraGPS());
+					cstm.setDouble(3,tiemposDetalleTarjeta.getDiferencia());
 					cstm.execute();
 				}
 				
@@ -340,5 +342,5 @@ public class DetalleTarjetaDAO {
 		}catch(Exception e) {
 			throw e;
 		}
-	}*/
+	}
 }
