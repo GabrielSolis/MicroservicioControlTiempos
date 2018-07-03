@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,6 +80,18 @@ public class TarjetaAPI {
 		}
 	}
 	
+	@GetMapping("/unidadesTrabajando/{fecha}/{codigoRU}")
+	public ResponseEntity<List<Tarjeta>> tarjetasUnidadesTrabajando(@PathVariable("fecha") String fecha,@PathVariable("codigoRU")int codigoRU) throws Exception{
+		List<Tarjeta> listaTarjetas = new ArrayList<>();
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			listaTarjetas = dao.listarTarjetas(codigoRU, fecha);
+		}catch(Exception e) {
+			throw e;
+		}
+		return new ResponseEntity<List<Tarjeta>>(listaTarjetas,HttpStatus.OK);
+	}
+	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<?> obtenerTarjeta(@PathVariable int codigo)throws Exception{
 		try {
@@ -138,6 +151,8 @@ public class TarjetaAPI {
 			throw e;
 		}
 	}
+	
+	
 	@DeleteMapping("/")
 	public ResponseEntity<?> darBajaTarjeta(@RequestBody Tarjeta tarjeta)throws Exception{
 		try {
@@ -159,6 +174,8 @@ public class TarjetaAPI {
 			throw e;
 		}
 	}
+	
+	
 	
 	
 }

@@ -55,6 +55,8 @@ public class DetalleTarjetaDAO {
 			return codigoTarjeta;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -86,6 +88,8 @@ public class DetalleTarjetaDAO {
 			Conexion.cerrarConexion();
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	public boolean verificarTarjeta(Tarjeta tarjeta) throws Exception{
@@ -104,6 +108,8 @@ public class DetalleTarjetaDAO {
 			return false;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	public List<Tarjeta> listarTarjetasEstado(String desdeFecha , String hastaFecha , String estado)throws Exception{
@@ -130,6 +136,8 @@ public class DetalleTarjetaDAO {
 			return listaTarjetas;
 		}catch(Exception e) {
 			throw e;	
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -157,6 +165,8 @@ public class DetalleTarjetaDAO {
 			return listaTarjetas;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -184,6 +194,8 @@ public class DetalleTarjetaDAO {
 			return listaTarjetas;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -206,6 +218,8 @@ public class DetalleTarjetaDAO {
 			return tarjeta;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -220,6 +234,8 @@ public class DetalleTarjetaDAO {
 			Conexion.cerrarConexion();
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -233,6 +249,8 @@ public class DetalleTarjetaDAO {
 			Conexion.cerrarConexion();
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -258,6 +276,8 @@ public class DetalleTarjetaDAO {
 			
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -278,7 +298,7 @@ public class DetalleTarjetaDAO {
 				tiempoDetalle.setCodigoTiempoEstablecido(rs.getInt("codigoTiempoEstablecido"));
 				tiempoDetalle.setHoraControl(rs.getString("horaControl"));
 				tiempoDetalle.setHoraGPS((rs.getString("horaGPS")!= null ? rs.getString("horaGPS") : ""));
-				tiempoDetalle.setDiferencia((Double)(rs.getObject("diferencia")));
+				tiempoDetalle.setDiferencia(rs.getDouble("diferencia"));
 				tiempoDetalle.setMinutosTolerancia(rs.getInt("minutosTolerancia"));
 				listaTiemposDetalleTarjeta.add(tiempoDetalle);
 			}
@@ -286,6 +306,8 @@ public class DetalleTarjetaDAO {
 			return listaTiemposDetalleTarjeta;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	@Transactional
@@ -320,6 +342,8 @@ public class DetalleTarjetaDAO {
 			return detalleTarjeta;
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 	
@@ -341,6 +365,32 @@ public class DetalleTarjetaDAO {
 			
 		}catch(Exception e) {
 			throw e;
+		}finally {
+			Conexion.cerrarConexion();
+		}
+	}
+	
+	public List<Tarjeta> listarUnidadesTarjetaPorFecha(String fecha,int codigoRegistroUnidad)throws Exception{
+		List<Tarjeta> listaTarjetas = new ArrayList<>();
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_liUnidadesTrabajando(?,?)}");
+			ResultSet rs;
+			cstm.setString(1,fecha);
+			cstm.setInt(2,codigoRegistroUnidad);
+			rs = cstm.executeQuery();
+			while(rs.next()) {
+				Tarjeta tarjeta = new Tarjeta();
+				tarjeta.setCodigo(rs.getInt("p_codigoTarjeta"));
+				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRegistroUnidad"));
+				tarjeta.setFecha(rs.getString("p_fecha"));
+				listaTarjetas.add(tarjeta);
+			}
+			return listaTarjetas;
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			Conexion.cerrarConexion();
 		}
 	}
 }
