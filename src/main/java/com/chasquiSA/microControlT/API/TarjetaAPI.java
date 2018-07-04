@@ -85,7 +85,7 @@ public class TarjetaAPI {
 		List<Tarjeta> listaTarjetas = new ArrayList<>();
 		try {
 			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
-			listaTarjetas = dao.listarTarjetas(codigoRU, fecha);
+			listaTarjetas = dao.listarUnidadesTarjetaPorFecha(fecha, codigoRU);
 		}catch(Exception e) {
 			throw e;
 		}
