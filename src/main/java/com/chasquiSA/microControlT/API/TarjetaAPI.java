@@ -92,6 +92,18 @@ public class TarjetaAPI {
 		return new ResponseEntity<List<Tarjeta>>(listaTarjetas,HttpStatus.OK);
 	}
 	
+	@GetMapping("/unidadesTrabajando/{fecha}/{codigoRU}/{opcion}")
+	public ResponseEntity<List<Tarjeta>> tarjetasUnidadesTrabajando(@PathVariable("fecha") String fecha,@PathVariable("codigoRU")int codigoRU , @PathVariable("opcion")String opcion) throws Exception{
+		List<Tarjeta> listaTarjetas = new ArrayList<>();
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			listaTarjetas = dao.listarUnidadesTarjetaOpcion(fecha, codigoRU,opcion);
+		}catch(Exception e) {
+			throw e;
+		}
+		return new ResponseEntity<List<Tarjeta>>(listaTarjetas,HttpStatus.OK);
+	}
+	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<?> obtenerTarjeta(@PathVariable int codigo)throws Exception{
 		try {

@@ -393,4 +393,27 @@ public class DetalleTarjetaDAO {
 			Conexion.cerrarConexion();
 		}
 	}
+	
+	public List<Tarjeta> listarUnidadesTarjetaOpcion(String fecha,int codigoRegistroUnidad, String opcion)throws Exception{
+		List<Tarjeta> listaTarjetas = new ArrayList<>();
+		try {
+			Connection conexion = Conexion.getConexion();
+		CallableStatement cstm = conexion.prepareCall("{call pr_liUnidadesTrabajandoFecha(?,?,?)}");
+			ResultSet rs;
+			cstm.setString(1,fecha);
+			cstm.setInt(2,codigoRegistroUnidad);
+			cstm.setString(3,opcion);
+			rs = cstm.executeQuery();
+			while(rs.next()) {
+				Tarjeta tarjeta = new Tarjeta();
+				tarjeta.setCodigo(rs.getInt(1));
+				listaTarjetas.add(tarjeta);
+			}
+			return listaTarjetas;
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			Conexion.cerrarConexion();
+		}
+	}
 }
