@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chasquiSA.microControlT.DAO.SancionDAO;
@@ -29,4 +31,14 @@ public class SancionAPI {
 		return new ResponseEntity<Integer>(respuesta,HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/{codigoDetalle}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sancion> obtenerSancionDetalleTarjeta(@RequestParam("codigoDetalle")int codigoDetalle)throws Exception{
+		Sancion sancion = new Sancion();
+		try {
+			sancion = dao.obtenerSancionDetalleTarjeta(codigoDetalle);
+		}catch(Exception e) {
+			throw e;
+		}
+		return new ResponseEntity<Sancion>(sancion,HttpStatus.OK);
+	}
 }
