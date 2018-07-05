@@ -43,11 +43,14 @@ public class SancionDAO {
 			cstm.setInt(1,codigoDetalleTarjeta);
 			ResultSet rs;
 			rs = cstm.executeQuery();
-			sancion.setCodigo(rs.getInt("p_codigo"));
-			sancion.setEstado(rs.getString("p_estado"));
-			sancion.setCodigoRegistroUnidad(rs.getInt("p_codigoRegistroUnidad"));
-			sancion.setSancionTiempo(rs.getDouble("p_sancionTiempo"));
-			sancion.setTiempoRetraso(rs.getDouble("p_tiempoRetraso"));
+			if(rs.next()) {
+				sancion.setCodigo(rs.getInt("p_codigo"));
+				sancion.setEstado(rs.getString("p_estado"));
+				sancion.setCodigoRegistroUnidad(rs.getInt("p_codigoRegistroUnidad"));
+				sancion.setSancionTiempo(rs.getDouble("p_sancionTiempo"));
+				sancion.setTiempoRetraso(rs.getDouble("p_tiempoRetraso"));
+			}
+			
 			conexion.close();
 		}catch(Exception e) {
 			throw e;
