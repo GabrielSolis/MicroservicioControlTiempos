@@ -1,5 +1,6 @@
 package com.chasquiSA.microControlT.API;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,8 @@ public class SancionAPI {
 	
 	@GetMapping(value="/{codigoDetalle}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Sancion> obtenerSancionDetalleTarjeta(@RequestParam("codigoDetalle")int codigoDetalle)throws Exception{
+		Logger log = Logger.getLogger("Logger de Ejemplo");
+		log.info(codigoDetalle);
 		Sancion sancion = new Sancion();
 		try {
 			sancion = dao.obtenerSancionDetalleTarjeta(codigoDetalle);
