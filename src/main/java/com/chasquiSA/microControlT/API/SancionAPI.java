@@ -32,7 +32,7 @@ public class SancionAPI {
 		return new ResponseEntity<Integer>(respuesta,HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/{codigoDetalle}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/{codigoDetalle}/",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Sancion> obtenerSancionDetalleTarjeta(@RequestParam("codigoDetalle")int codigoDetalle)throws Exception{
 		Logger log = Logger.getLogger("Logger de Ejemplo");
 		log.info(codigoDetalle);
