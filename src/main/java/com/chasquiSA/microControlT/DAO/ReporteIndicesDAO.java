@@ -19,6 +19,8 @@ public class ReporteIndicesDAO {
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_liIndicadorRutas(?,?)}");
+			cstm.setString(1,fecha);
+			cstm.setString(2,opcion);
 			ResultSet rs;
 			rs = cstm.executeQuery();
 			while(rs.next()) {
