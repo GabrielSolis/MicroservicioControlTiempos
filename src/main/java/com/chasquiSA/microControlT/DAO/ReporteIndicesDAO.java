@@ -15,6 +15,7 @@ import com.chasquiSA.microControlT.Dominio.Tarjeta;
 public class ReporteIndicesDAO {
 	public List<Tarjeta> listarIndicesRescorridoRutas(String fecha, String opcion) throws Exception{
 		List<Tarjeta> listaTarjetas = new ArrayList<>();
+		
 		DetalleTarjeta detalle = new DetalleTarjeta();
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -25,9 +26,13 @@ public class ReporteIndicesDAO {
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				Tarjeta tarjeta = new Tarjeta();
+				List<DetalleTarjeta> listaDetalles = new ArrayList<>();
 				detalle.setCodigoRuta(rs.getInt(1));
 				tarjeta.setCodigo(rs.getInt(2));
+				listaDetalles.add(detalle);
+				tarjeta.setListaDetalles(listaDetalles);
 				listaTarjetas.add(tarjeta);
+				
 			}
 			Conexion.cerrarConexion();
 			return listaTarjetas;
