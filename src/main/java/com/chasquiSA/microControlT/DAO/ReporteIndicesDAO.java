@@ -25,8 +25,8 @@ public class ReporteIndicesDAO {
 			rs = cstm.executeQuery();
 			while(rs.next()) {
 				Tarjeta tarjeta = new Tarjeta();
-				tarjeta.setCodigo(rs.getInt("cantidad"));
-				detalle.setCodigoRuta(rs.getInt("codigoRuta"));
+				detalle.setCodigoRuta(rs.getInt(1));
+				tarjeta.setCodigo(rs.getInt(2));
 				listaTarjetas.add(tarjeta);
 			}
 			Conexion.cerrarConexion();
