@@ -294,7 +294,7 @@ public class DetalleTarjetaDAO {
 				DetalleTarjeta detalleTarjeta = new DetalleTarjeta();
 				tiempoDetalle.setCodigo(rs.getInt("codigo"));
 				detalleTarjeta.setCodigo(rs.getInt("codigoDetalleTarjeta"));
-				detalleTarjeta.setHoraInicio("horaInicio");
+				detalleTarjeta.setHoraInicio(rs.getString("horaInicio"));
 				tiempoDetalle.setDetalleTarjeta(detalleTarjeta);
 				tiempoDetalle.setCodigoTiempoEstablecido(rs.getInt("codigoTiempoEstablecido"));
 				tiempoDetalle.setHoraControl(rs.getString("horaControl"));
