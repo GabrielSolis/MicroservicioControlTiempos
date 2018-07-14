@@ -21,11 +21,11 @@ public class Conexion {
 	public static Connection getConexion() throws Exception{
 		//String urlDataBase = "jdbc:postgresql://localhost:5432/ChasquiSA";
 		//String urlDataBase = "jdbc:postgresql://localhost/ChasquiSA";
-		String urlDataBase = "jdbc:postgresql://ec2-23-23-130-158.compute-1.amazonaws.com:5432/dc2309nncb82j0";
+		String urlDataBase = "jdbc:postgresql://ec2-174-129-28-38.compute-1.amazonaws.com:5432/d7ite1rtejj9da";
 		try {
 			Class.forName("org.postgresql.Driver");
 			//conexion = DriverManager.getConnection(urlDataBase,"postgres","1234");
-			conexion = DriverManager.getConnection(urlDataBase,"kfynnkzoefhnpo","288b39e08ea37d8f4f187bdee680600b684de8902940580781fe1ab2fe8cbafe");
+			conexion = DriverManager.getConnection(urlDataBase,"epnvssgbxirdfv","09588d1b6b0a2b62a99276551999d9a5e9bebe9f3c2a04b0e926a11066b51289");
 		}catch(Exception e) {
 			throw e;
 		}
