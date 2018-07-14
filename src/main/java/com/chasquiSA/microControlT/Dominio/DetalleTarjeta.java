@@ -5,7 +5,6 @@ import java.util.List;
 public class DetalleTarjeta {
 	private int codigo;
 	private int codigoTarjeta;
-	private String estado;
 	private int codigoRuta;
 	private String mensaje;
 	private String nombreRuta;
@@ -68,17 +67,6 @@ public class DetalleTarjeta {
 
 
 
-
-	public String getEstado() {
-		return estado;
-	}
-
-
-
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
 
 
 

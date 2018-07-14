@@ -6,9 +6,8 @@ public class Tarjeta {
 	private int codigo;
 	private int codigoRegistroUnidad;
 	private String numero;
-	private String usuario;
+	private int codigoUsuario;
 	private String fecha;
-	private String estado;
 	private String mensaje;
 	List<DetalleTarjeta> listaDetalles;
 	private boolean vigencia;
@@ -18,15 +17,14 @@ public class Tarjeta {
 	}
 
 		
-	public Tarjeta(int codigo, int codigoRegistroUnidad, String numero, String usuario, String fecha, String estado,
+	public Tarjeta(int codigo, int codigoRegistroUnidad, String numero, String usuario, String fecha, 
 			List<DetalleTarjeta> listaDetalles, String mensaje, boolean vigencia) {
 		
 		this.codigo = codigo;
 		this.codigoRegistroUnidad = codigoRegistroUnidad;
 		this.numero = numero;
-		this.usuario = usuario;
 		this.fecha = fecha;
-		this.estado = estado;
+
 		this.listaDetalles = listaDetalles;
 		this.mensaje = mensaje;
 		this.vigencia = vigencia;
@@ -82,13 +80,13 @@ public class Tarjeta {
 	}
 
 
-	public String getUsuario() {
-		return usuario;
+	public int getCodigoUsuario() {
+		return codigoUsuario;
 	}
 
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setCodigoUsuario(int usuario) {
+		this.codigoUsuario = usuario;
 	}
 
 
@@ -100,13 +98,7 @@ public class Tarjeta {
 		this.fecha = fecha;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
 
 	public boolean isVigencia() {
 		return vigencia;

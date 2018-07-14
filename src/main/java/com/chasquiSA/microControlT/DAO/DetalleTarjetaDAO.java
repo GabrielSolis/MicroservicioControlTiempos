@@ -19,26 +19,24 @@ public class DetalleTarjetaDAO {
 	public int registroTarjeta(Tarjeta tarjeta)throws Exception {
 		try {
 			Connection conexion = Conexion.getConexion();
-			CallableStatement cstm = conexion.prepareCall("{call pr_iTarjeta(?,?,?,?,?,?)}");
+			CallableStatement cstm = conexion.prepareCall("{call pr_iTarjeta(?,?,?,?,?)}");
 			ResultSet rs,rs1;
 			int codigoTarjeta,codigoDetalleTarjeta;
 			cstm.setString(1,tarjeta.getNumero());
 			cstm.setString(2,tarjeta.getFecha());
-			cstm.setString(3,tarjeta.getUsuario());
-			cstm.setString(4,tarjeta.getEstado());
-			cstm.setInt(5,tarjeta.getCodigoRegistroUnidad());
-			cstm.setBoolean(6,tarjeta.isVigencia());
+			cstm.setInt(3,tarjeta.getCodigoUsuario());
+			cstm.setInt(4,tarjeta.getCodigoRegistroUnidad());
+			cstm.setBoolean(5,tarjeta.isVigencia());
 			rs = cstm.executeQuery();
 			rs.next();
 			codigoTarjeta = rs.getInt(1);
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?)}");
 			cstm1.setInt(1,codigoTarjeta);
-			cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
-			cstm1.setInt(3, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
-			cstm1.setInt(4,tarjeta.getListaDetalles().get(0).getCodigoRuta());
-			cstm1.setString(5,tarjeta.getListaDetalles().get(0).getHoraInicio());
-			cstm1.setString(6, tarjeta.getListaDetalles().get(0).getNombreRuta());
-			cstm1.setBoolean(7,tarjeta.getListaDetalles().get(0).isVigencia());
+			cstm1.setInt(2, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
+			cstm1.setInt(3,tarjeta.getListaDetalles().get(0).getCodigoRuta());
+			cstm1.setString(4,tarjeta.getListaDetalles().get(0).getHoraInicio());
+			cstm1.setString(5, tarjeta.getListaDetalles().get(0).getNombreRuta());
+			cstm1.setBoolean(6,tarjeta.getListaDetalles().get(0).isVigencia());
 			rs1 = cstm1.executeQuery();
 			rs1.next();
 			codigoDetalleTarjeta = rs1.getInt(1);
@@ -66,14 +64,13 @@ public class DetalleTarjetaDAO {
 			Connection conexion = Conexion.getConexion();
 			ResultSet rs;
 			int codigoDetalleTarjeta;
-			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?,?)}");
+			CallableStatement cstm1 = conexion.prepareCall("{call pr_iDetalleTarjeta(?,?,?,?,?,?)}");
 				cstm1.setInt(1,tarjeta.getCodigo());
-				cstm1.setString(2,tarjeta.getListaDetalles().get(0).getEstado());
-				cstm1.setInt(3, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
-				cstm1.setInt(4,tarjeta.getListaDetalles().get(0).getCodigoRuta());
-				cstm1.setString(5,tarjeta.getListaDetalles().get(0).getHoraInicio());
-				cstm1.setString(6, tarjeta.getListaDetalles().get(0).getNombreRuta());
-				cstm1.setBoolean(7,tarjeta.getListaDetalles().get(0).isVigencia());
+				cstm1.setInt(2, tarjeta.getListaDetalles().get(0).getNumeroVuelta());
+				cstm1.setInt(3,tarjeta.getListaDetalles().get(0).getCodigoRuta());
+				cstm1.setString(4,tarjeta.getListaDetalles().get(0).getHoraInicio());
+				cstm1.setString(5, tarjeta.getListaDetalles().get(0).getNombreRuta());
+				cstm1.setBoolean(6,tarjeta.getListaDetalles().get(0).isVigencia());
 				rs = cstm1.executeQuery();
 				rs.next();
 				codigoDetalleTarjeta = rs.getInt(1);
@@ -129,7 +126,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
 				tarjeta.setMensaje(rs.getString("p_mensaje"));
-				tarjeta.setEstado(rs.getString("p_estado"));
+				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
 			}
 			Conexion.cerrarConexion();
@@ -158,7 +155,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
 				tarjeta.setMensaje("p_mensaje");
-				tarjeta.setEstado(rs.getString("p_estado"));
+				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
 			}
 			Conexion.cerrarConexion();
@@ -187,7 +184,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
 				tarjeta.setMensaje("p_mensaje");
-				tarjeta.setEstado(rs.getString("p_estado"));
+				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
 			}
 			Conexion.cerrarConexion();
@@ -198,7 +195,7 @@ public class DetalleTarjetaDAO {
 			Conexion.cerrarConexion();
 		}
 	}
-	
+	/*Revisar este método*/
 	public Tarjeta obtenerTarjeta(int codigo)throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
@@ -210,7 +207,6 @@ public class DetalleTarjetaDAO {
 			if(rs.next()){
 				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRegistroUnidad"));
 				tarjeta.setFecha(rs.getString("p_fecha"));
-				tarjeta.setEstado(rs.getString("p_estado"));
 				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 			}
 			
@@ -229,7 +225,7 @@ public class DetalleTarjetaDAO {
 			CallableStatement cstm = conexion.prepareCall("{call pr_eTarjeta(?,?,?)}");
 			cstm.setInt(1,tarjeta.getCodigo());
 			cstm.setString(2, tarjeta.getMensaje());
-			cstm.setString(3, tarjeta.getUsuario());
+			cstm.setInt(3, tarjeta.getCodigoUsuario());
 			cstm.execute();
 			Conexion.cerrarConexion();
 		}catch(Exception e) {
