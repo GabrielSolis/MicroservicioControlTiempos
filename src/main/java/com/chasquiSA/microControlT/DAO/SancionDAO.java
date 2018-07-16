@@ -82,7 +82,7 @@ public class SancionDAO {
 				Tarjeta tarjeta  = new Tarjeta();
 				DetalleTarjeta detalle = new DetalleTarjeta();
 				Sancion sancion = new Sancion();
-				tarjeta.setCodigo(rs.getInt("pr_iCodigoTarjeat"));
+				tarjeta.setCodigo(rs.getInt("pr_iCodigoTarjeta"));
 				tarjeta.setFecha(rs.getString("pr_fechaTarjeta"));
 				detalle.setNombreRuta(rs.getString("p_nombreRuta"));
 				detalle.setNumeroVuelta(rs.getInt("pr_numeroVuelta"));
