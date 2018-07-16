@@ -50,7 +50,7 @@ public class SancionAPI {
 		return new ResponseEntity<Sancion>(sancion,HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listarPorUnidad/{codigoRu}/{fechaInicio}/{fechaFin}/{opcion}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/listarPorUnidad/{codigoRU}/{fechaInicio}/{fechaFin}/{opcion}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TarjetaSancionDTO>> obtenerSancionesUnidad(@PathVariable("codigoRU") int codigoRU,@PathVariable("fechaInicio")String fechaInicio,
 			@PathVariable("fechaFin")String fechaFin, @PathVariable("opcion")String opcion) throws Exception{
 		List<TarjetaSancionDTO> listaSancionesTarjeta = new ArrayList<>();
