@@ -90,7 +90,7 @@ public class SancionDAO {
 				sancion.setMotivo(rs.getString("p_motivoSancion"));
 				sancion.setTiempoRetraso(rs.getDouble("p_tiempoRetraso"));
 				sancion.setSancionTiempo(rs.getDouble("p_sancionTiempo"));
-				sancion.setJustificacion(rs.getString("p_justifacionRetraso"));
+				sancion.setJustificacion(rs.getString("p_justificacionRetraso"));
 				tarjetaSancion.setTarjeta(tarjeta);
 				listaDetalle.add(detalle);
 				tarjetaSancion.getTarjeta().setListaDetalles(listaDetalle);
