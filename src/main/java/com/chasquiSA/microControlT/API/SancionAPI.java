@@ -1,5 +1,8 @@
 package com.chasquiSA.microControlT.API;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chasquiSA.microControlT.DAO.SancionDAO;
 import com.chasquiSA.microControlT.Dominio.Sancion;
+import com.chasquiSA.microControlT.util.TarjetaSancionDTO;
 
 @RestController
 @RequestMapping("/sancion")
@@ -44,5 +48,18 @@ public class SancionAPI {
 			throw e;
 		}
 		return new ResponseEntity<Sancion>(sancion,HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/listarPorUnidad/{codigoRu}/{fechaInicio}/{fechaFin}/opcion",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TarjetaSancionDTO>> obtenerSancionesUnidad(@PathVariable("codigoRU") int codigoRU,@PathVariable("fechaInicio")String fechaInicio,
+			@PathVariable("fechaFin")String fechaFin, @PathVariable("opcion")String opcion) throws Exception{
+		List<TarjetaSancionDTO> listaSancionesTarjeta = new ArrayList<>();
+		try {
+			listaSancionesTarjeta = dao.obtenerSancionesUnidad(fechaInicio, fechaFin, codigoRU, opcion);
+			
+		}catch(Exception e) {
+			throw e;
+		}
+		return new ResponseEntity<List<TarjetaSancionDTO>>(listaSancionesTarjeta,HttpStatus.OK);	
 	}
 }
