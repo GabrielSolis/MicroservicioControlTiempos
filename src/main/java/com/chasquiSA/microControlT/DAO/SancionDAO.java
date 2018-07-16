@@ -67,7 +67,7 @@ public class SancionDAO {
 	
 	public List<TarjetaSancionDTO> obtenerSancionesUnidad(String fechaInicio,String fechaFin, int codigoRU,String opcion)throws Exception{
 		List<TarjetaSancionDTO> listaSancionesTarjeta = new ArrayList<>();
-		List<DetalleTarjeta> listaDetalle = new ArrayList<>();
+		
 		try {
 			Connection conexion = Conexion.getConexion();
 			CallableStatement cstm = conexion.prepareCall("{call pr_lSancionPorUnidad(?,?,?,?)}");
@@ -78,6 +78,7 @@ public class SancionDAO {
 			ResultSet rs;
 			rs = cstm.executeQuery();
 			while(rs.next()) {
+				List<DetalleTarjeta> listaDetalle = new ArrayList<>();
 				TarjetaSancionDTO tarjetaSancion = new TarjetaSancionDTO();
 				Tarjeta tarjeta  = new Tarjeta();
 				DetalleTarjeta detalle = new DetalleTarjeta();
@@ -96,7 +97,7 @@ public class SancionDAO {
 				tarjetaSancion.getTarjeta().setListaDetalles(listaDetalle);
 				tarjetaSancion.setSancion(sancion);
 				listaSancionesTarjeta.add(tarjetaSancion);
-				listaDetalle.clear();
+				
 			}
 			return listaSancionesTarjeta;
 		}catch(Exception e) {
