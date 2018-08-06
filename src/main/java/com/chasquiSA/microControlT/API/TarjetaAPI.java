@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -187,7 +187,28 @@ public class TarjetaAPI {
 		}
 	}
 	
+	@PutMapping("/estado/{codigo}/{estado}")
+	public ResponseEntity<?> actualizarEstado(@PathVariable("codigo") int codigoTarjeta,@PathVariable("estado")String estado) throws Exception{
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			dao.cambiarEstado(codigoTarjeta, estado);
+			return new ResponseEntity<>("Actualización de estado exitosa",HttpStatus.OK);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 	
+	@GetMapping("/ultimaTarjeta/estado/{codigoRU}")
+	public ResponseEntity<?> estadoUltimaTarjeta(@PathVariable("codigoRU") int codigoRU) throws Exception{
+		String estado = "";
+		try {
+			DetalleTarjetaDAO dao = new DetalleTarjetaDAO();
+			estado=dao.estadoUltimaTarjeta(codigoRU);
+			return new ResponseEntity<>(estado,HttpStatus.OK);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
 	
 	
 }

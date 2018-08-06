@@ -10,6 +10,7 @@ public class Tarjeta {
 	private String fecha;
 	private String mensaje;
 	List<DetalleTarjeta> listaDetalles;
+	private String estado;
 	private boolean vigencia;
 	
 	public Tarjeta() {
@@ -106,6 +107,16 @@ public class Tarjeta {
 
 	public void setVigencia(boolean vigencia) {
 		this.vigencia = vigencia;
+	}
+
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

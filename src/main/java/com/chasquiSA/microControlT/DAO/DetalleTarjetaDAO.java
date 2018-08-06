@@ -126,6 +126,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
 				tarjeta.setMensaje(rs.getString("p_mensaje"));
+				tarjeta.setEstado(rs.getString("p_estado"));
 				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
 			}
@@ -155,6 +156,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
 				tarjeta.setMensaje("p_mensaje");
+				tarjeta.setEstado(rs.getString("p_estado"));
 				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
 			}
@@ -183,6 +185,7 @@ public class DetalleTarjetaDAO {
 				tarjeta.setCodigoRegistroUnidad(rs.getInt("p_codigoRu"));
 				tarjeta.setNumero(rs.getString("p_numeroTarjeta"));
 				tarjeta.setFecha(rs.getString("p_fechaTarjeta"));
+				tarjeta.setEstado(rs.getString("p_estado"));
 				tarjeta.setMensaje("p_mensaje");
 				tarjeta.setVigencia(rs.getBoolean("p_vigencia"));
 				listaTarjetas.add(tarjeta);
@@ -407,6 +410,38 @@ public class DetalleTarjetaDAO {
 				listaTarjetas.add(tarjeta);
 			}
 			return listaTarjetas;
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			Conexion.cerrarConexion();
+		}
+	}
+	
+	public String estadoUltimaTarjeta(int codigoRU) throws Exception{
+		String estado = "";
+		try{
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_estadoUltimaTarjeta(?)}");
+			ResultSet rs;
+			cstm.setInt(1,codigoRU);
+			rs= cstm.executeQuery();
+			while(rs.next()) {
+				estado = rs.getString("estado");
+			}
+			return estado;
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			Conexion.cerrarConexion();
+		}
+	}
+	public void cambiarEstado(int codigoTarjeta,String estado) throws Exception{
+		try {
+			Connection conexion = Conexion.getConexion();
+			CallableStatement cstm = conexion.prepareCall("{call pr_aEstadoTarjeta(?,?)}");
+			cstm.setInt(1,codigoTarjeta);
+			cstm.setString(2,estado);
+			cstm.execute();
 		}catch(Exception e) {
 			throw e;
 		}finally {
