@@ -427,7 +427,7 @@ public class DetalleTarjetaDAO {
 			cstm.setInt(1,codigoRU);
 			rs= cstm.executeQuery();
 			while(rs.next()) {
-				estado = rs.getString("estado");
+				estado = rs.getString(1);
 			}
 			return estado;
 		}catch(Exception e) {
@@ -439,8 +439,6 @@ public class DetalleTarjetaDAO {
 	public void cambiarEstado(int codigoTarjeta,String estado) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
-			Logger log = Logger.getLogger("Logger de Ejemplo");
-			log.info("Token: " + codigoTarjeta + " - " + estado );
 			CallableStatement cstm = conexion.prepareCall("{call pr_aEstadoTarjeta(?,?)}");
 			cstm.setInt(1,codigoTarjeta);
 			cstm.setString(2,estado);
