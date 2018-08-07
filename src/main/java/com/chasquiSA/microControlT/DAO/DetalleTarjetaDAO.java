@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -438,6 +439,8 @@ public class DetalleTarjetaDAO {
 	public void cambiarEstado(int codigoTarjeta,String estado) throws Exception{
 		try {
 			Connection conexion = Conexion.getConexion();
+			Logger log = Logger.getLogger("Logger de Ejemplo");
+			log.info("Token: " + codigoTarjeta + " - " + estado );
 			CallableStatement cstm = conexion.prepareCall("{call pr_aEstadoTarjeta(?,?)}");
 			cstm.setInt(1,codigoTarjeta);
 			cstm.setString(2,estado);
